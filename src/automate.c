@@ -41,6 +41,7 @@ void ajoute_etat(struct Automate *automate, int id) {
 }
 
 
+
 void ajoute_transition(struct Automate *automate, int from, int to, char carac) {
   printf("\tAjout d’un transition de %d à %d avec le caractère %c\n", from, to, carac);
 
@@ -53,3 +54,54 @@ void ajoute_transition(struct Automate *automate, int from, int to, char carac) 
 
     if (automate->transitions[automate->transition_nb] != NULL) {
       automate->transitions[automate->transition_nb]->from = automate->etats[from];
+      automate->transitions[automate->transition_nb]->to = automate->etats[to];
+      automate->transitions[automate->transition_nb]->carac = carac;
+      automate->transition_nb++;
+    } else {
+      fprintf(stderr, "Erreur : Impossible d'allouer de la mémoire pour la transition\n");
+    }
+  } else {
+    fprintf(stderr, "Erreur : L'automate est NULL\n");
+  }
+}
+
+
+
+void determine_langue(struct Automate *automate) {
+  printf("\nDétermine le langage :\n");
+
+  if (automate != NULL) {
+    printf("\tLangage determiné.\n");
+  } else {
+    fprintf(stderr, "\tErreur : L'automate est NULL\n");
+  }
+}
+
+
+
+void free_automate(struct Automate *automate) {
+  printf("\nLibération de l’automate\n");
+  if (automate != NULL) {
+    for (int i = 0; i < automate->etat_nb; ++i) {
+      free(automate->etats[i]);
+    }
+    free(automate->etats);
+
+    for (int i = 0; i < automate->transition_nb; ++i) {
+      free(automate->transitions[i]);
+    }
+    free(automate->transitions);
+    free(automate);
+  } else {
+    fprintf(stderr, "Erreur : L'automate est NULL\n");
+  }
+}
+
+
+
+int etat_final_du_mot(struct Automate *automate, const char *mot) {
+  int etat_actuel = 0;
+  int len = strlen(mot);
+
+  for (int i = 0; i < len; ++i) {
+    char carac_actuel = mot[i];
