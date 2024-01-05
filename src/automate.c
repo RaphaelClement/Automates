@@ -105,3 +105,20 @@ int etat_final_du_mot(struct Automate *automate, const char *mot) {
 
   for (int i = 0; i < len; ++i) {
     char carac_actuel = mot[i];
+    // Recherche de la transition correspondante au symbole
+    bool transition_trouve = false;
+    for (int j = 0; j < automate->transition_nb; ++j) {
+      if (automate->transitions[j]->from->id == etat_actuel &&
+	  automate->transitions[j]->carac == carac_actuel) {
+          etat_actuel = automate->transitions[j]->to->id;
+	  transition_trouve = true;
+          break;
+      }
+    }
+
+    if (!transition_trouve) {
+      return -1;
+    }
+  }
+  return etat_actuel;
+}
