@@ -1,4 +1,4 @@
-Trois commandes sont disponibles :
+Trois commandes sont disponibles pour utiliser le Makefile :
 
 - make : permet de compiler tous les fichiers, en affichant (s'il y en a) les 'warnings' et les 'segmentation fault'
 
