@@ -11,6 +11,7 @@ OBJ = $(SRC:$(SRCDIR)/%.c=$(SRCDIR)/%.o)
 EXEC = test_automate
 
 all: $(EXEC)
+	mkdir lib
 	ar rcs lib/lib_automate.a $(OBJ)
 
 $(EXEC): $(OBJ)
@@ -26,3 +27,4 @@ test: $(EXEC)
 .PHONY: clean
 clean: $(EXEC)
 	rm bin/test_automate lib/lib_automate.a src/automate.o
+	rmdir lib/
