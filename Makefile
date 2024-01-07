@@ -11,6 +11,7 @@ OBJ = $(SRC:$(SRCDIR)/%.c=$(SRCDIR)/%.o)
 EXEC = test_automate
 
 all: $(EXEC)
+	mkdir lib
 	ar rcs lib/lib_automate.a $(OBJ)
 
 $(EXEC): $(OBJ)
